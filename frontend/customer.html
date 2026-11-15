@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SETU AI · Asha's phone</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23ff8a1f%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Noto+Sans+Kannada:wght@400;600&display=swap">
+<link rel="stylesheet" href="/static/phone.css">
+</head>
+<body data-page="customer">
+<div class="device">
+  <div class="pad">
+    <div class="strip"><span>SETU AI</span><span class="sim">Simulated provider</span></div>
+    <div class="app-head">
+      <div><h1>Asha</h1><div class="small muted">Synthetic customer · Meeting Mode on</div></div>
+      <label class="small muted" for="order" style="display:grid;gap:4px;min-width:118px">Order
+        <select id="order"></select></label>
+    </div>
+  </div>
+
+  <!-- Requests -->
+  <section class="tabpane pad" id="pane-req" role="tabpanel" aria-labelledby="tab-req">
+    <div class="alerts" id="alertsBar"><span>Tap here once to allow sound and vibration for requests.</span><span aria-hidden="true">🔔</span></div>
+    <div id="liveCall" hidden></div>
+    <div id="cards"><div class="empty">No request waiting. When the rider asks for something you haven't pre-approved, a silent card appears here.</div></div>
+    <div class="msg" aria-live="polite">
+      <div class="eyebrow">What actually happened</div>
+      <div class="kn" id="msgKn">—</div>
+      <div id="msgEn">—</div>
+      <div class="foot" id="msgFoot">Fixed template, chosen only from evidence in the ledger.</div>
+    </div>
+  </section>
+
+  <!-- Activity -->
+  <section class="tabpane pad" id="pane-act" role="tabpanel" aria-labelledby="tab-act" hidden>
+    <div class="chain ok" id="chain">Hash chain —</div>
+    <div class="small muted" id="ledgerMeta"></div>
+    <ol class="timeline" id="ledger"></ol>
+  </section>
+
+  <!-- Rules -->
+  <section class="tabpane pad" id="pane-rules" role="tabpanel" aria-labelledby="tab-rules" hidden>
+    <div class="card">
+      <h2 style="margin-bottom:4px">My delivery rules</h2>
+      <div class="small muted" style="margin-bottom:12px">Your assistant can only follow these.</div>
+      <form class="rules" id="rules">
+        <label class="small muted" for="ws" style="display:grid;gap:4px">Free from<input type="time" id="ws"></label>
+        <label class="small muted" for="we" style="display:grid;gap:4px">until<input type="time" id="we"></label>
+        <label class="switch full" for="ag"><input type="checkbox" id="ag"> Pre-approve the security guard</label>
+        <label class="switch full" for="an"><input type="checkbox" id="an"> Pre-approve a neighbour</label>
+        <label class="switch full muted" for="otpLock"><input type="checkbox" id="otpLock" disabled> Share my OTP: never (locked)</label>
+        <button class="btn primary full" type="submit">Save rules</button>
+        <div class="small muted full" id="rulesNote">Orders that need verification at handover never go to a guard or neighbour.</div>
+      </form>
+    </div>
+    <div class="card">
+      <h2 style="margin-bottom:4px">Simulated delivery provider</h2>
+      <div class="small muted" style="margin-bottom:10px">For testing failure paths. "Accepted" means the request was accepted, never "delivered".</div>
+      <div class="seg" id="seg" role="group" aria-label="Provider mode">
+        <button type="button" data-mode="accept" aria-pressed="true">accept</button>
+        <button type="button" data-mode="reject" aria-pressed="false">reject</button>
+        <button type="button" data-mode="unavailable" aria-pressed="false">down</button>
+        <button type="button" data-mode="invalid" aria-pressed="false">junk</button>
+      </div>
+    </div>
+  </section>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" id="tab-req" aria-selected="true" data-pane="pane-req">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 20a2 2 0 0 0 4 0"/></svg>
+      Requests<span class="badge-n" id="badge" hidden>1</span></button>
+    <button role="tab" id="tab-act" aria-selected="false" data-pane="pane-act">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Activity</button>
+    <button role="tab" id="tab-rules" aria-selected="false" data-pane="pane-rules">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg>My rules</button>
+  </nav>
+</div>
+<div class="setu-overlay" id="setuCall" hidden></div>
+<script src="/static/sound.js"></script>
+<script src="/static/customer.js"></script>
+<script src="/static/setu-customer.js"></script>
+</body>
+</html>

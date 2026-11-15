@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SETU AI</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23ff8a1f%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="/static/phone.css">
+</head>
+<body>
+<div class="device">
+  <div class="screen launch pad">
+    <div class="strip"><span>SETU AI</span><span class="sim">Simulated</span></div>
+    <div>
+      <h1>Your assistant takes the rider's call</h1>
+      <p class="muted" style="margin:8px 0 0">Open the rider's phone on one device and Asha's phone on another. The rider calls, Asha's AI assistant picks up and talks by voice in Hindi, Kannada or English.</p>
+    </div>
+    <a class="card" href="/call">
+      <span class="eyebrow">Phone 1</span><h2>Rider's phone</h2>
+      <span class="small muted">Call Asha and talk to her assistant. Needs a microphone.</span>
+    </a>
+    <a class="card" href="/customer">
+      <span class="eyebrow">Phone 2</span><h2>Asha's phone</h2>
+      <span class="small muted">Silent approval cards, what happened, the hash-chained log, and her rules.</span>
+    </a>
+    <div class="card" style="display:grid;gap:6px">
+      <span class="eyebrow">Using two real phones</span>
+      <span class="small" id="lan">Checking your network address…</span>
+      <span class="small muted">Phones only allow the microphone on https. Start with <code>python run.py --lan --https</code>, open the address on the rider's phone and accept the certificate warning once.</span>
+    </div>
+    <div class="small muted" id="mode"></div>
+    <a class="small muted" href="/console">Developer console</a>
+  </div>
+</div>
+<script>
+fetch("/health").then((r) => r.json()).then((h) => {
+  document.getElementById("mode").textContent = h.voice === "gnani"
+    ? "Voice: Gnani Prisma (hearing) and Timbre (speaking)."
+    : "Voice: no Gnani key, so the browser's speech stands in. Add GNANI_API_KEY to .env for Prisma and Timbre.";
+  const el = document.getElementById("lan");
+  el.innerHTML = h.lan_url
+    ? `Rider: <code>${h.lan_url}/call</code><br>Asha: <code>${h.lan_url}/customer</code>`
+    : "Start the server with --lan to use other devices on your Wi-Fi.";
+}).catch(() => {});
+</script>
+</body>
+</html>

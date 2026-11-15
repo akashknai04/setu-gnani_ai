@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0e1411">
+<title>SETU AI · Rider call</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%232fbf71%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Noto+Sans+Kannada:wght@400;600&family=Noto+Sans+Devanagari:wght@400;600&display=swap">
+<link rel="stylesheet" href="/static/phone.css">
+</head>
+<body class="call">
+<div class="device">
+
+  <!-- ================= DIAL ================= -->
+  <section class="screen dial pad" id="dial">
+    <div class="strip"><span>Rider app</span><span class="sim">Simulated call</span></div>
+    <div>
+      <div class="eyebrow">Delivery in progress</div>
+      <h1 style="margin-top:4px">Call the customer</h1>
+    </div>
+    <div class="card contact">
+      <div class="avatar" aria-hidden="true">A</div>
+      <div>
+        <div style="font-weight:700;font-size:17px">Asha <span class="muted small">(synthetic customer)</span></div>
+        <div class="order-line"><span class="pill" id="orderPill">ORD_1024</span><span class="pill">Demo Store</span><span class="pill" id="otpPill">no OTP at handover</span></div>
+      </div>
+    </div>
+    <label class="field" for="order"><span>Order</span>
+      <select id="order">
+        <option value="ORD_1024">ORD_1024 · handover can be approved</option>
+        <option value="ORD_2048">ORD_2048 · needs verification at handover</option>
+        <option value="ORD_9999">ORD_9999 · already delivered</option>
+      </select></label>
+    <div class="field"><span id="langLabel">I will speak in</span>
+      <div class="seg langs" id="langs" role="group" aria-label="Language">
+        <button type="button" data-lang="hi" class="hi" aria-pressed="true">हिंदी</button>
+        <button type="button" data-lang="kn" class="kn" aria-pressed="false">ಕನ್ನಡ</button>
+        <button type="button" data-lang="en" aria-pressed="false">English</button>
+        <button type="button" data-lang="auto" aria-pressed="false" id="autoLang">Auto</button>
+      </div>
+    </div>
+    <label class="switch ringfirst" for="ringFirst"><input type="checkbox" id="ringFirst" checked>
+      <span><b>Ring Asha first.</b> If she answers, SETU translates live between you. If she's busy, SETU's AI agent answers.</span></label>
+    <div style="flex:1"></div>
+    <button class="call-btn" id="callBtn" aria-label="Call Asha">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>
+    </button>
+    <div class="call-caption">Call Asha</div>
+    <div class="voice-note" id="voiceNote">Checking voice…</div>
+    <div style="display:grid;gap:6px;justify-items:center">
+      <button class="btn" id="testBtn" type="button">Test sound</button>
+      <div class="voice-note" id="testNote" aria-live="polite"></div>
+    </div>
+    <div style="text-align:center"><button class="linkish" id="openSheet1">What can I say? All scenarios</button></div>
+  </section>
+
+  <!-- ================= IN CALL ================= -->
+  <section class="screen incall pad" id="incall" hidden>
+    <div class="strip"><span id="voiceTag">Voice</span><span class="sim">Simulated call</span></div>
+    <div class="who-block">
+      <div class="avatar" aria-hidden="true">A</div>
+      <div style="font-weight:700;font-size:19px">Asha <span class="muted small">(synthetic)</span></div>
+      <div class="small muted" id="whoSub">Calling…</div>
+      <div class="timer" id="timer">00:00</div>
+      <div class="orb" id="orb" data-mode="idle" aria-hidden="true"></div>
+      <div class="state" id="state" aria-live="polite">Ringing…</div>
+    </div>
+    <div class="captions" id="captions" aria-live="polite"></div>
+    <div id="waitSlot"></div>
+    <button class="ptt" id="ptt" hidden>Hold to talk</button>
+    <div class="controls">
+      <button class="ctl" id="muteBtn" aria-pressed="false"><span class="c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>Mute</button>
+      <button class="ctl" id="handsBtn" aria-pressed="true"><span class="c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12h2l2-6 4 12 3-9 2 3h3"/></svg></span>Hands-free</button>
+      <button class="ctl" id="whyBtn" aria-pressed="true"><span class="c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg></span>Decisions</button>
+      <button class="ctl" id="openSheet2"><span class="c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span>What to say</button>
+    </div>
+    <div class="end-row">
+      <button class="end-btn" id="endBtn" aria-label="End call">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 9c-2.6 0-5 .5-7.3 1.4-.6.2-1 .8-1 1.4v2.5c0 .6.5 1 1.1.9l3.4-.6c.5-.1.9-.6.9-1.1v-1.8c1-.3 1.9-.4 2.9-.4s1.9.1 2.9.4v1.8c0 .5.4 1 .9 1.1l3.4.6c.6.1 1.1-.3 1.1-.9v-2.5c0-.6-.4-1.2-1-1.4C17 9.5 14.6 9 12 9z"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ================= ENDED ================= -->
+  <section class="screen ended pad" id="ended" hidden>
+    <div class="strip"><span>Call ended</span><span class="sim">Simulated</span></div>
+    <div>
+      <div class="eyebrow" id="endTime">00:00</div>
+      <h1 style="margin-top:4px">Call with Asha's assistant</h1>
+    </div>
+    <div class="card" style="display:grid;gap:8px">
+      <div class="eyebrow">What Asha was told</div>
+      <div class="outcome-kn" id="outKn"></div>
+      <div id="outEn"></div>
+    </div>
+    <div class="card" style="display:grid;gap:8px">
+      <div class="eyebrow">What happened on the call</div>
+      <ol class="did" id="did"></ol>
+      <div class="small muted" id="chainLine"></div>
+    </div>
+    <div style="flex:1"></div>
+    <button class="btn primary block" id="againBtn">Call again</button>
+    <a class="btn block" href="/customer" target="_blank" style="text-align:center;text-decoration:none">Open Asha's phone</a>
+  </section>
+
+  <button class="sound-gate" id="soundGate" hidden type="button">Tap to turn on sound</button>
+
+  <!-- ================= SCENARIO SHEET ================= -->
+  <div class="sheet-back" id="sheetBack" hidden></div>
+  <div class="sheet" id="sheet" hidden role="dialog" aria-label="Scenarios">
+    <div class="sheet-head pad">
+      <div><h2>Every scenario</h2><div class="small muted" id="sheetSub">Say the line yourself, or tap Play to hear the whole call.</div></div>
+      <button class="btn" id="closeSheet">Close</button>
+    </div>
+    <div class="sheet-body pad" id="sheetBody"></div>
+  </div>
+</div>
+<script src="/static/sound.js"></script>
+<script src="/static/call.js"></script>
+<script src="/static/setu-call.js"></script>
+</body>
+</html>
