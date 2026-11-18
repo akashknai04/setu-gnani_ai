@@ -340,34 +340,90 @@ The benchmark audio must be recorded by human speakers. See [benchmark/README.md
 
 ## 18. Project Structure
 
+```text
+setu-gnani_ai/
+├── backend/                         Application server (FastAPI)
+│   ├── main.py                      Application entry point and API routes
+│   ├── config.py                    Environment-driven settings
+│   ├── db.py                        Database access
+│   ├── seed.py                      Simulated orders and customers
+│   ├── engine/                      Decision core
+│   │   ├── policy.py                Deterministic policy engine
+│   │   ├── state_machine.py         Call and order state transitions
+│   │   ├── approvals.py             HMAC-signed, single-use approvals
+│   │   ├── ledger.py                Never-Lie Ledger (hash-chained)
+│   │   ├── messages.py              Fixed response templates
+│   │   ├── orchestrator.py          Turn-by-turn pipeline coordinator
+│   │   └── otp_guard.py             OTP detection and redaction
+│   ├── intent/                      Intent understanding
+│   │   ├── fast_path.py             Rule-based classifier (hi / kn / en)
+│   │   ├── evon_intent.py           Optional Evon labelling
+│   │   └── schema.py                Strict JSON schema for labels
+│   ├── interpreter/                 Live translation
+│   │   ├── phrases.py               Reviewed doorstep phrases
+│   │   ├── model.py                 IndicTrans2 integration (optional)
+│   │   ├── service.py               Translation service
+│   │   └── routes.py                Live translated call endpoints
+│   ├── telephony/
+│   │   └── inya_bridge.py           Real phone calls via Gnani Inya
+│   ├── voice/                       Speech input and output
+│   │   ├── prisma.py                Prisma speech-to-text client
+│   │   ├── timbre.py                Timbre text-to-speech client
+│   │   ├── audio.py                 ffmpeg audio conversion
+│   │   ├── mock_voice.py            Offline voice for no-key mode
+│   │   └── phrase_cache.py          Pre-rendered phrase cache
+│   ├── providers/                   Delivery provider integration
+│   │   ├── base.py                  Provider interface
+│   │   └── mock_delivery.py         Simulated provider
+│   └── tests/                       Automated test suite (331 tests)
+│
+├── frontend/                        Web interface (vanilla JS, no build step)
+│   ├── index.html                   Landing page
+│   ├── call.html, call.js           Rider call screen
+│   ├── customer.html, customer.js   Customer phone screen
+│   ├── rider.html, app.js           Developer console
+│   ├── style.css, phone.css         Styles
+│   ├── scenarios.json               23 demonstration scenarios
+│   └── voice/                       Built-in voice recordings
+│
+├── benchmark/                       DoorstepBench evaluation
+│   ├── transcripts.csv              40 rider scripts
+│   ├── make_noisy.py                Noise-condition generator
+│   ├── make_8khz.py                 Telephone-quality generator
+│   └── evaluate.py                  Metrics and reporting
+│
+├── docs/                            Documentation
+│   ├── architecture.md              Detailed architecture
+│   ├── safety.md                    Safety model
+│   ├── limitations.md               Known limitations
+│   ├── gnani_notes.md               Gnani API notes
+│   └── phone_call.md                Real phone call setup
+│
+├── tools/
+│   └── voicegen/                    Offline voice asset generation
+│
+├── architecture.svg / .png          System architecture diagram
+├── Dockerfile                       Container image (Python 3.11 + ffmpeg)
+├── requirements.txt                 Core dependencies
+├── requirements-translate.txt       Optional IndicTrans2 dependencies
+├── .env.example                     Configuration template
+├── run.py                           Application launcher
+├── live_check.py                    Gnani key verification
+├── call_me.py                       Real phone call setup and dialling
+├── REVIEW.md                        Review notes
+└── README.md
 ```
-Dockerfile                 Container image (Python 3.11 + ffmpeg)
-.env.example               Configuration template
-run.py · live_check.py · call_me.py
-architecture.svg / .png    Architecture diagram
-backend/
-  main.py                  FastAPI application entry point
-  config.py · db.py · seed.py
-  engine/                  policy · state_machine · approvals · ledger
-                           messages · orchestrator · otp_guard
-  intent/                  fast_path · evon_intent · schema
-  interpreter/             phrases · model (IndicTrans2) · service · routes
-  telephony/               inya_bridge (Gnani Inya phone calls)
-  voice/                   prisma · timbre · audio · mock_voice · phrase_cache
-  providers/               base · mock_delivery
-  tests/                   policy · otp_safety · state_machine · approvals · ledger
-                           messages · fast_path · voice · end_to_end · scenarios · benchmark
-frontend/
-  index.html
-  call.html, call.js       Rider interface
-  customer.html, customer.js   Customer interface
-  phone.css · scenarios.json
-  rider.html, app.js, style.css   Developer console
-                           (vanilla JavaScript, no build step)
-benchmark/                 transcripts.csv · make_noisy.py · make_8khz.py · evaluate.py
-docs/                      architecture · safety · limitations · gnani_notes · phone_call
-tools/voicegen/            Offline voice asset generation
-```
+
+### Directory Overview
+
+| Directory | Responsibility |
+|---|---|
+| `backend/engine/` | All permission decisions, approvals and the tamper-evident record. No language model is involved here. |
+| `backend/intent/` | Converts an utterance into an intent label. Rules first, optional Evon only when unclear. |
+| `backend/voice/` | Speech-to-text, text-to-speech, audio conversion and offline fallbacks. |
+| `backend/interpreter/` | Live bidirectional translation between rider and customer. |
+| `frontend/` | Rider, customer and developer screens; no build step required. |
+| `benchmark/` | Reproducible accuracy and safety evaluation. |
 
 ## 19. Documentation
 
