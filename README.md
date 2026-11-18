@@ -79,22 +79,11 @@ SETU AI is designed around one principle: **language models understand and speak
 
 ## 5. System Architecture
 
-```
-rider audio ──ffmpeg──▶ Prisma STT ──▶ OTP redaction ──▶ fast path (hi/kn/en rules)
-                                                          │ unclear utterances only
-                                                          ▼
-                                                 Evon (strict JSON) — optional
-                                                          │ intent label
-                                                          ▼
-                       ┌────────── deterministic POLICY ENGINE ──────────┐
-                       │ customer rules · order · approval · provider caps│
-                       └──┬────────────┬──────────────┬─────────────┬─────┘
-                  instant_action  request_approval  record_rider_agreed  refuse / escalate
-                       │            │ HMAC one-tap card    │
-              permit ──▶ simulated  ▼ (re-enters policy)   │
-              provider          customer                   │
-                       └────────────┴──── Never-Lie Ledger ┴──▶ fixed templates ──▶ Timbre (cached)
-```
+<p align="center">
+  <img src="docs/architecture.svg" alt="SETU AI system architecture diagram" width="100%">
+</p>
+
+The system is organised into three layers: **input and understanding**, a **deterministic decision core**, and **execution and truthful response**. Models are used only to hear, label and speak; they never decide permissions.
 
 **Processing flow**
 
