@@ -7,6 +7,11 @@
 ![Tests](https://img.shields.io/badge/Tests-331%20passed-brightgreen)
 ![Languages](https://img.shields.io/badge/Languages-Hindi%20%7C%20Kannada%20%7C%20English-orange)
 ![Status](https://img.shields.io/badge/Status-Prototype-lightgrey)
+![Deploy](https://img.shields.io/badge/Deploy-Docker%20%7C%20Render-46E3B7)
+
+**Live demo:** [Rider screen](https://setu-gnani-ai.onrender.com/call) · [Customer screen](https://setu-gnani-ai.onrender.com/customer) · [Developer console](https://setu-gnani-ai.onrender.com/console)
+
+> The demo runs on a free Render instance, which sleeps after about 15 minutes of inactivity. Open the link and allow up to a minute for the first load.
 
 ---
 
@@ -20,17 +25,18 @@
 6. [Technology Stack](#6-technology-stack)
 7. [Getting Started](#7-getting-started)
 8. [Configuration](#8-configuration)
-9. [Usage](#9-usage)
-10. [Voice Pipeline](#10-voice-pipeline)
-11. [Live Interpretation](#11-live-interpretation)
-12. [Telephony Integration (Gnani Inya)](#12-telephony-integration-gnani-inya)
-13. [Supported Scenarios](#13-supported-scenarios)
-14. [Demonstration Guide](#14-demonstration-guide)
-15. [Testing](#15-testing)
-16. [Benchmark: DoorstepBench](#16-benchmark-doorstepbench)
-17. [Project Structure](#17-project-structure)
-18. [Documentation](#18-documentation)
-19. [Disclaimer](#19-disclaimer)
+9. [Deployment](#9-deployment)
+10. [Usage](#10-usage)
+11. [Voice Pipeline](#11-voice-pipeline)
+12. [Live Interpretation](#12-live-interpretation)
+13. [Telephony Integration (Gnani Inya)](#13-telephony-integration-gnani-inya)
+14. [Supported Scenarios](#14-supported-scenarios)
+15. [Demonstration Guide](#15-demonstration-guide)
+16. [Testing](#16-testing)
+17. [Benchmark: DoorstepBench](#17-benchmark-doorstepbench)
+18. [Project Structure](#18-project-structure)
+19. [Documentation](#19-documentation)
+20. [Disclaimer](#20-disclaimer)
 
 ---
 
@@ -139,6 +145,7 @@ This validates the configured key against Prisma and Timbre.
 python run.py
 ```
 
+The application is served at **http://127.0.0.1:8000**.
 
 ### 7.5 Running on Two Physical Devices
 
@@ -152,15 +159,69 @@ Open the printed `https://<your-ip>:8000/call` on the rider's device and `/custo
 
 ## 8. Configuration
 
+All settings are read from environment variables. Copy `.env.example` to `.env` for local use; on a hosting platform, set them in its dashboard. **Never commit `.env` or any API key to version control.**
+
 | Variable | Purpose | Default |
 |---|---|---|
-| `GNANI_API_KEY` | API key for Prisma and Timbre | not set |
-| `MOCK_VOICE` | Set to `0` to use live Gnani voice; otherwise built-in recordings are used | see `.env.example` |
-| `EVON_MODE` | Intent labelling mode; `local` uses a self-hosted Evon server | `off` |
-| `TRANSLATE_MODE` | Translation backend selection | `both` |
-| `INTERPRET_RING_S` | Seconds the customer's phone rings before the AI agent takes over | `20` |
+| `MOCK_VOICE` | `1` uses built-in recordings and no network; `0` uses live Gnani voice | `1` |
+| `GNANI_API_KEY` | API key for Prisma and Timbre | empty |
+| `GNANI_BASE_URL` | Gnani API base URL | `https://api.vachana.ai` |
+| `PRISMA_MODEL`, `PRISMA_LANGUAGE_CODE`, `PRISMA_FORMAT` | Speech-to-text model, language list and output format | `prisma-v3.0`, `hi-IN,kn-IN,en-IN`, `codemix` |
+| `PRISMA_USE_KEYTERMS`, `PRISMA_TIMEOUT_S` | Keyterm boosting and request timeout | `1`, `15` |
+| `TIMBRE_MODEL` | Text-to-speech model | `timbre-v2.5` |
+| `TIMBRE_VOICE_HI` / `_KN` / `_EN` | Assistant voices | Nalini / Saanvi / Kaveri |
+| `TIMBRE_RIDER_VOICE_HI` / `_KN` / `_EN` | Rider voices used in solo demo playback | Deepak / Kavin / Pranav |
+| `EVON_MODE` | Intent labelling: `off`, `api` or `local` (self-hosted server) | `off` |
+| `TRANSLATE_MODE` | Translation backend: `phrases`, `model` or `both` | `both` |
+| `INTERPRET_RING_S` | Seconds the customer's phone rings before the AI agent answers | `20` |
+| `APPROVAL_SECRET` | Secret used to sign approval tokens. **Must be a long random value in any deployment.** | placeholder |
+| `APPROVAL_TTL_S` | Approval token lifetime in seconds | `30` |
+| `DB_PATH`, `PHRASE_CACHE_DIR` | Database file and phrase-cache directory | `data/deliverysaathi.db`, `data/phrase_cache` |
+| `INYA_API_KEY`, `INYA_BASE_URL`, `INYA_BOT_ID`, `INYA_ENVIRONMENT`, `INYA_BRIDGE_TOKEN`, `INYA_ORDER_ID`, `INYA_WAIT_S`, `CALL_TO_NUMBER`, `CALL_COUNTRY_CODE` | Real phone call integration (see [Section 13](#13-telephony-integration-gnani-inya)) | empty |
 
-## 9. Usage
+## 9. Deployment
+
+SETU AI ships with a `Dockerfile` and can be deployed to any container host. Phones allow microphone access only over HTTPS, so a hosted deployment with a valid certificate is the recommended way to demonstrate the voice features on real devices.
+
+### 9.1 Run with Docker
+
+```bash
+docker build -t setu-ai .
+docker run --rm -p 8000:8000 --env-file .env -e PORT=8000 setu-ai
+```
+
+The container installs Python 3.11 and ffmpeg, and starts the FastAPI application with Uvicorn on the port given by the `PORT` environment variable.
+
+### 9.2 Deploy to Render
+
+1. Push the repository, including the `Dockerfile`, to GitHub.
+2. In Render, select **New +**, then **Web Service**, and connect the repository.
+3. Configure the service:
+
+| Setting | Value |
+|---|---|
+| Language | Docker |
+| Branch | `main` |
+| Region | Singapore (closest to India) |
+| Instance type | Free for evaluation; a paid instance to avoid sleeping |
+
+4. Under **Environment Variables**, add the variables from [Section 8](#8-configuration). At minimum set `GNANI_API_KEY`, `MOCK_VOICE=0` and a generated `APPROVAL_SECRET`.
+5. Select **Deploy web service**. When the log reports that the service is live, open `https://<service-name>.onrender.com/call` and `/customer`.
+
+Render redeploys automatically on every push to the configured branch.
+
+### 9.3 Production Considerations
+
+| Topic | Guidance |
+|---|---|
+| **Secrets** | Store keys only in the host's environment settings. Rotate any key that has been exposed in a screenshot, log or commit. |
+| **Persistence** | The default database path is inside the container. On Render's free tier the disk is ephemeral, so the ledger and data reset on each deploy. Use a persistent disk on a paid plan if records must survive. |
+| **Cold starts** | Free instances sleep after inactivity. Open the application shortly before a demonstration. |
+| **Resources** | The optional IndicTrans2 model needs 1–2 GB of additional space and more memory than a free instance provides. Leave it disabled (`TRANSLATE_MODE=phrases`) on small instances. |
+| **Single worker** | Run one application worker, as call state is held in memory. |
+| **Access** | The demonstration has no user authentication. Share the URL only with intended reviewers. |
+
+## 10. Usage
 
 ### 9.1 Application Pages
 
@@ -178,7 +239,7 @@ No second participant is required. On the call screen, select **What to say** to
 - **Play all** runs all 23 scenarios in sequence.
 - While the customer's phone is ringing, the operator may answer as the customer directly on the call screen.
 
-## 10. Voice Pipeline
+## 11. Voice Pipeline
 
 **With a Gnani API key** (`GNANI_API_KEY` set and `MOCK_VOICE=0`): Prisma transcribes the rider with per-turn language detection and code-mixed support, and Timbre speaks every reply. Operation is hands-free: the device listens, submits a clip when the rider pauses, and plays the response.
 
@@ -186,7 +247,7 @@ No second participant is required. On the call screen, select **What to say** to
 
 **Audio troubleshooting.** Select **Test sound** before placing a call. If no audio is heard, increase the volume, confirm that output is not routed to a Bluetooth device, and on iPhone disable Low Power Mode. Audio plays even when the iPhone's silent switch is enabled.
 
-## 11. Live Interpretation
+## 12. Live Interpretation
 
 When **Ring Asha first** is enabled (the default), selecting **Call Asha** rings the customer's device at `/customer`. The customer chooses a language (ಕನ್ನಡ, English or हिंदी) and selects **Answer with SETU translation**. Each party then speaks in their own language, and SETU translates and speaks the utterance to the other party.
 
@@ -200,7 +261,7 @@ If the customer selects **Let SETU's agent handle it**, or does not answer withi
 | **Model translation** (optional, local) | Utterances outside the phrase set are sent to AI4Bharat **IndicTrans2**. Install with `pip install -r requirements-translate.txt` (approximately 1–2 GB on first use). Without it, SETU states that it could not translate and displays the original words. |
 | **OTP handling** | OTP-like numbers are masked before translation. If the rider requests the OTP, the customer is advised to share it only in person. |
 
-## 12. Telephony Integration (Gnani Inya)
+## 13. Telephony Integration (Gnani Inya)
 
 SETU can place a real telephone call using Gnani's Inya platform, in which the operator acts as the rider. Inya dials a whitelisted number and carries the voice. Each utterance is posted to `/inya/turn`, where the same policy engine determines the response, and Inya speaks it back in the rider's language, switching automatically among Kannada, Hindi, English and code-mixed speech. The customer approves requests on `/customer` during the call.
 
@@ -212,7 +273,7 @@ python call_me.py call
 
 Full instructions: [docs/phone_call.md](docs/phone_call.md)
 
-## 13. Supported Scenarios
+## 14. Supported Scenarios
 
 Every scenario is tested in Hindi, Kannada and English.
 
@@ -228,7 +289,7 @@ Every scenario is tested in Hindi, Kannada and English.
 
 The scenario catalogue is maintained in `frontend/scenarios.json`. The test module `backend/tests/test_scenarios.py` executes every scenario in all three languages (69 calls) through the API, ensuring the interface and the test suite remain consistent.
 
-## 14. Demonstration Guide
+## 15. Demonstration Guide
 
 ### 14.1 Voice Demonstration
 
@@ -250,7 +311,7 @@ The scenario catalogue is maintained in `frontend/scenarios.json`. The test modu
 | 48–55 s | Rider says thanks, the assistant says goodbye, and a call summary is shown. |
 | 55–60 s | Closing statement: "Prisma and Timbre by Gnani. The AI never decides permissions, and never claims more than it can prove." |
 
-## 15. Testing
+## 16. Testing
 
 ```bash
 python -m pytest
@@ -260,7 +321,7 @@ Current result: **331 passed, 1 skipped.** The skipped test is the live Gnani co
 
 Test modules cover: policy, OTP safety, state machine, approvals, ledger, messages, fast path, voice, end-to-end flow, scenarios and benchmark.
 
-## 16. Benchmark: DoorstepBench
+## 17. Benchmark: DoorstepBench
 
 DoorstepBench evaluates the system on **40 rider scripts** under five audio conditions: clean, SNR 20 dB, SNR 10 dB, SNR 5 dB and 8 kHz telephone audio.
 
@@ -277,9 +338,13 @@ DoorstepBench evaluates the system on **40 rider scripts** under five audio cond
 
 The benchmark audio must be recorded by human speakers. See [benchmark/README.md](benchmark/README.md) for procedure.
 
-## 17. Project Structure
+## 18. Project Structure
 
 ```
+Dockerfile                 Container image (Python 3.11 + ffmpeg)
+.env.example               Configuration template
+run.py · live_check.py · call_me.py
+architecture.svg / .png    Architecture diagram
 backend/
   main.py                  FastAPI application entry point
   config.py · db.py · seed.py
@@ -301,9 +366,10 @@ frontend/
                            (vanilla JavaScript, no build step)
 benchmark/                 transcripts.csv · make_noisy.py · make_8khz.py · evaluate.py
 docs/                      architecture · safety · limitations · gnani_notes · phone_call
+tools/voicegen/            Offline voice asset generation
 ```
 
-## 18. Documentation
+## 19. Documentation
 
 | Document | Description |
 |---|---|
@@ -315,6 +381,6 @@ docs/                      architecture · safety · limitations · gnani_notes 
 | [benchmark/README.md](benchmark/README.md) | Benchmark methodology |
 | [REVIEW.md](REVIEW.md) | Review notes |
 
-## 19. Disclaimer
+## 20. Disclaimer
 
 This software is a prototype intended for demonstration and evaluation. The delivery provider, orders, customers and addresses are simulated. Prisma, Timbre, Evon and Inya are products of Gnani AI; IndicTrans2 and the Indic voice models are products of AI4Bharat and their respective contributors.
