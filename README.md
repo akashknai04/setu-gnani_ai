@@ -80,7 +80,7 @@ SETU AI is designed around one principle: **language models understand and speak
 ## 5. System Architecture
 
 <p align="center">
-  <img src="docs/architecture.svg" alt="SETU AI system architecture diagram" width="100%">
+  <img src="architecture.svg" alt="SETU AI system architecture diagram" width="100%">
 </p>
 
 The system is organised into three layers: **input and understanding**, a **deterministic decision core**, and **execution and truthful response**. Models are used only to hear, label and speak; they never decide permissions.
