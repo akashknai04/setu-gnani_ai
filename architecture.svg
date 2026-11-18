@@ -1,0 +1,190 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 860" width="1200" height="860" font-family="Segoe UI, Helvetica, Arial, sans-serif" xmlns:c2pa="http://c2pa.org/manifest">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+    <marker id="arrowDash" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="120%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="860" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="600" y="38" text-anchor="middle" font-size="24" font-weight="700" fill="#0f172a">SETU AI: System Architecture</text>
+  <text x="600" y="60" text-anchor="middle" font-size="13" fill="#64748b">Language models understand and speak. Deterministic code decides. Every statement is verified against the ledger.</text>
+
+  <!-- ===== BAND A: INPUT ===== -->
+  <rect x="30" y="80" width="1140" height="130" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="50" y="102" font-size="12" font-weight="700" letter-spacing="1.5" fill="#475569">1  INPUT AND UNDERSTANDING</text>
+
+  <!-- Rider audio -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="120" width="150" height="70" rx="8" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  </g>
+  <text x="135" y="149" text-anchor="middle" font-size="14" font-weight="700" fill="#111827">Rider Audio</text>
+  <text x="135" y="168" text-anchor="middle" font-size="11" fill="#4b5563">Web call or Inya phone</text>
+
+  <!-- ffmpeg -->
+  <g filter="url(#shadow)">
+    <rect x="246" y="120" width="150" height="70" rx="8" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  </g>
+  <text x="321" y="149" text-anchor="middle" font-size="14" font-weight="700" fill="#111827">ffmpeg</text>
+  <text x="321" y="168" text-anchor="middle" font-size="11" fill="#4b5563">Audio conversion</text>
+
+  <!-- Prisma -->
+  <g filter="url(#shadow)">
+    <rect x="432" y="120" width="150" height="70" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  </g>
+  <text x="507" y="149" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a8a">Prisma STT</text>
+  <text x="507" y="168" text-anchor="middle" font-size="11" fill="#1e40af">Language detection</text>
+
+  <!-- OTP Guard -->
+  <g filter="url(#shadow)">
+    <rect x="618" y="120" width="150" height="70" rx="8" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  </g>
+  <text x="693" y="149" text-anchor="middle" font-size="14" font-weight="700" fill="#064e3b">OTP Guard</text>
+  <text x="693" y="168" text-anchor="middle" font-size="11" fill="#065f46">Redacts OTP digits</text>
+
+  <!-- Fast path -->
+  <g filter="url(#shadow)">
+    <rect x="804" y="120" width="150" height="70" rx="8" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  </g>
+  <text x="879" y="149" text-anchor="middle" font-size="14" font-weight="700" fill="#064e3b">Fast Path</text>
+  <text x="879" y="168" text-anchor="middle" font-size="11" fill="#065f46">hi / kn / en rules</text>
+
+  <!-- Evon (optional) -->
+  <g filter="url(#shadow)">
+    <rect x="1004" y="120" width="136" height="70" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" stroke-dasharray="6 4"/>
+  </g>
+  <text x="1072" y="149" text-anchor="middle" font-size="14" font-weight="700" fill="#78350f">Evon</text>
+  <text x="1072" y="168" text-anchor="middle" font-size="11" fill="#92400e">Optional · JSON label</text>
+
+  <!-- Input arrows -->
+  <line x1="210" y1="155" x2="244" y2="155" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <line x1="396" y1="155" x2="430" y2="155" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <line x1="582" y1="155" x2="616" y2="155" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <line x1="768" y1="155" x2="802" y2="155" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <line x1="954" y1="155" x2="1002" y2="155" stroke="#b45309" stroke-width="1.8" stroke-dasharray="5 3" marker-end="url(#arrowDash)"/>
+  <text x="978" y="146" text-anchor="middle" font-size="10" fill="#b45309">unclear</text>
+
+  <!-- ===== BAND B: DECISION CORE ===== -->
+  <rect x="30" y="235" width="1140" height="205" rx="12" fill="#ecfdf5" stroke="#6ee7b7"/>
+  <text x="50" y="256" font-size="12" font-weight="700" letter-spacing="1.5" fill="#047857">2  DECISION CORE (DETERMINISTIC)</text>
+
+  <line x1="879" y1="190" x2="879" y2="268" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <path d="M1072 190 V222 H960 V268" fill="none" stroke="#b45309" stroke-width="1.8" stroke-dasharray="5 3" marker-end="url(#arrowDash)"/>
+  <text x="1016" y="217" text-anchor="middle" font-size="10" fill="#b45309">intent label</text>
+
+  <!-- Policy engine -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="270" width="1080" height="76" rx="10" fill="#047857" stroke="#064e3b" stroke-width="1.5"/>
+  </g>
+  <text x="600" y="302" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">Deterministic Policy Engine</text>
+  <text x="600" y="326" text-anchor="middle" font-size="12.5" fill="#d1fae5">Evaluates: customer rules  ·  order state  ·  approval state  ·  provider capabilities</text>
+
+  <!-- Decision boxes -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="370" width="240" height="56" rx="8" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+    <rect x="340" y="370" width="240" height="56" rx="8" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+    <rect x="620" y="370" width="240" height="56" rx="8" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+    <rect x="900" y="370" width="240" height="56" rx="8" fill="#ffffff" stroke="#b91c1c" stroke-width="1.5"/>
+  </g>
+  <text x="180" y="394" text-anchor="middle" font-size="14" font-weight="700" fill="#064e3b">Instant Action</text>
+  <text x="180" y="412" text-anchor="middle" font-size="11" fill="#4b5563">Permitted by rule</text>
+  <text x="460" y="394" text-anchor="middle" font-size="14" font-weight="700" fill="#064e3b">Request Approval</text>
+  <text x="460" y="412" text-anchor="middle" font-size="11" fill="#4b5563">Rule missing</text>
+  <text x="740" y="394" text-anchor="middle" font-size="14" font-weight="700" fill="#064e3b">Record Rider Statement</text>
+  <text x="740" y="412" text-anchor="middle" font-size="11" fill="#4b5563">Logged as the rider's word</text>
+  <text x="1020" y="394" text-anchor="middle" font-size="14" font-weight="700" fill="#991b1b">Refuse / Escalate</text>
+  <text x="1020" y="412" text-anchor="middle" font-size="11" fill="#4b5563">OTP, scams, unverified orders</text>
+
+  <!-- Policy to decisions -->
+  <line x1="180" y1="346" x2="180" y2="368" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <line x1="460" y1="346" x2="460" y2="368" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <line x1="740" y1="346" x2="740" y2="368" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <line x1="1020" y1="346" x2="1020" y2="368" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+  <!-- ===== BAND C: EXECUTION ===== -->
+  <rect x="30" y="465" width="1140" height="250" rx="12" fill="#faf5ff" stroke="#d8b4fe"/>
+  <text x="1150" y="486" text-anchor="end" font-size="12" font-weight="700" letter-spacing="1.5" fill="#6d28d9">3  EXECUTION AND TRUTHFUL RESPONSE</text>
+
+  <!-- Provider -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="500" width="240" height="70" rx="8" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  </g>
+  <text x="180" y="527" text-anchor="middle" font-size="14" font-weight="700" fill="#111827">Delivery Provider</text>
+  <text x="180" y="545" text-anchor="middle" font-size="11" fill="#4b5563">Simulated · called only after</text>
+  <text x="180" y="559" text-anchor="middle" font-size="11" fill="#4b5563">the policy check passes</text>
+
+  <!-- Approval card -->
+  <g filter="url(#shadow)">
+    <rect x="340" y="500" width="240" height="70" rx="8" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  </g>
+  <text x="460" y="524" text-anchor="middle" font-size="14" font-weight="700" fill="#111827">Customer Approval Card</text>
+  <text x="460" y="542" text-anchor="middle" font-size="11" fill="#4b5563">HMAC · single-use · 30 s expiry</text>
+  <text x="460" y="558" text-anchor="middle" font-size="11" fill="#4b5563">Re-enters the policy engine</text>
+
+  <!-- Decision arrows to execution -->
+  <line x1="180" y1="426" x2="180" y2="498" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <line x1="460" y1="426" x2="460" y2="498" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+  <!-- Ledger -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="615" width="560" height="70" rx="10" fill="#6d28d9" stroke="#4c1d95" stroke-width="1.5"/>
+  </g>
+  <text x="340" y="644" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">Never-Lie Ledger</text>
+  <text x="340" y="665" text-anchor="middle" font-size="12" fill="#ede9fe">Append-only  ·  SHA-256 hash-chained  ·  verify_chain()</text>
+
+  <!-- Execution to ledger -->
+  <line x1="180" y1="570" x2="180" y2="613" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <line x1="460" y1="570" x2="460" y2="613" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <path d="M740 426 V595 H560 V613" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <path d="M1020 426 V595 H740" fill="none" stroke="#475569" stroke-width="1.8"/>
+
+  <!-- Templates -->
+  <g filter="url(#shadow)">
+    <rect x="660" y="615" width="220" height="70" rx="8" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5"/>
+  </g>
+  <text x="770" y="642" text-anchor="middle" font-size="14" font-weight="700" fill="#4c1d95">Fixed Templates</text>
+  <text x="770" y="660" text-anchor="middle" font-size="11" fill="#5b21b6">Downgraded if the ledger</text>
+  <text x="770" y="674" text-anchor="middle" font-size="11" fill="#5b21b6">cannot prove the claim</text>
+
+  <!-- Timbre -->
+  <g filter="url(#shadow)">
+    <rect x="920" y="615" width="220" height="70" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  </g>
+  <text x="1030" y="642" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a8a">Timbre TTS</text>
+  <text x="1030" y="660" text-anchor="middle" font-size="11" fill="#1e40af">Hindi / Kannada / English</text>
+  <text x="1030" y="674" text-anchor="middle" font-size="11" fill="#1e40af">Cached pre-rendered phrases</text>
+
+  <line x1="620" y1="650" x2="658" y2="650" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <line x1="880" y1="650" x2="918" y2="650" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+  <!-- Final outputs -->
+  <line x1="1030" y1="685" x2="1030" y2="742" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <g filter="url(#shadow)">
+    <rect x="700" y="744" width="440" height="50" rx="8" fill="#0f172a"/>
+  </g>
+  <text x="920" y="765" text-anchor="middle" font-size="13.5" font-weight="700" fill="#ffffff">Spoken reply to the rider</text>
+  <text x="920" y="783" text-anchor="middle" font-size="11.5" fill="#cbd5e1">Status and activity log to the customer</text>
+
+  <!-- Legend -->
+  <text x="60" y="765" font-size="12" font-weight="700" fill="#475569">LEGEND</text>
+  <rect x="60" y="777" width="14" height="14" rx="3" fill="#dbeafe" stroke="#1d4ed8"/>
+  <text x="82" y="789" font-size="11.5" fill="#334155">Gnani model</text>
+  <rect x="160" y="777" width="14" height="14" rx="3" fill="#d1fae5" stroke="#047857"/>
+  <text x="182" y="789" font-size="11.5" fill="#334155">Deterministic logic</text>
+  <rect x="300" y="777" width="14" height="14" rx="3" fill="#fef3c7" stroke="#b45309" stroke-dasharray="3 2"/>
+  <text x="322" y="789" font-size="11.5" fill="#334155">Optional LLM</text>
+  <rect x="410" y="777" width="14" height="14" rx="3" fill="#ede9fe" stroke="#6d28d9"/>
+  <text x="432" y="789" font-size="11.5" fill="#334155">Integrity and response</text>
+  <rect x="560" y="777" width="14" height="14" rx="3" fill="#f3f4f6" stroke="#374151"/>
+  <text x="582" y="789" font-size="11.5" fill="#334155">Component</text>
+
+  <text x="600" y="830" text-anchor="middle" font-size="11" fill="#94a3b8">Delivery provider, orders and customers are simulated in this prototype.</text>
+<metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTo5MzZmOGI3MS1hZjgzLTQwYzgtOWJlOC01YjJmYWRmYTJjYmUAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaHJ8PH9nyDfbEkUto3k7PNAAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDplMTk4ZWM3My1iYjFjLTRjNDEtOGQyNi1kMjUxOTRjZmM4ZGNscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNorHUBjbtfG0nZkZQbx+0GewAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFgg3zBRDUcIseWvKV0dQLYeG9MiGA4NY4HSlLZcZKsk9V+kZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaHTuTTPVemgHgn7rkkCB2VYAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRMAAAAAAAAAAAAAAAAZGhhc2hYIMbN7C9wU9xbL0yJGdDeoSjEnq0ybkFY3Mfe+Gdmaw66ZG5hbWVuanVtYmYgbWFuaWZlc3RqZXhjbHVzaW9uc4GiZXN0YXJ0GTFCZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOjkzNmY4YjcxLWFmODMtNDBjOC05YmU4LTViMmZhZGZhMmNiZS9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOmFmODU2YTA5LTM5YjktNGE0Yi04YTMzLWY3YzBiMWVkYTNhZHJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCDfMFENRwix5a8pXR1Ath4b0yIYDg1jgdKUtlxkqyT1X6JjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggc5wPEU0Y/gFt2P7waiHxBkI/NqGYhb2t7Gcz+GEhV0WiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggOIQHRdDZOsngC3Vq1tTE4XxXaZJJFQZO9b/576pXW8N0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQM1yZGKV7Y8NyNeJha1N9uoJKKlGl7UER28DIWXVDyjmkXDjNg3ER4B1YmgdC5IFkTFC7GWhb8dgTd+rkAqJ2wk=</c2pa:manifest></metadata></svg>
