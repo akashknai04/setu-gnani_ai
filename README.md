@@ -139,7 +139,6 @@ This validates the configured key against Prisma and Timbre.
 python run.py
 ```
 
-The application is served at **http://127.0.0.1:8000**.
 
 ### 7.5 Running on Two Physical Devices
 
